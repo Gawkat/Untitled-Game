@@ -3,9 +3,20 @@ Game
 
 # TODO
 
-## Console TODO
-creaet
+## Gameplay
+create gameplay
+
+## Movement
+add movement
+
+## Sound
+create music system
+create effect player
+
+## Console
+check for commands with same name as typed
+create console ui
 
 Commands:
-render fps
-
+draw fps
+show ping
