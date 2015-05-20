@@ -2,6 +2,8 @@ package com.github.gawkat.untitledgame;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.assets.loaders.ModelLoader;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
@@ -14,8 +16,12 @@ import com.badlogic.gdx.graphics.g3d.ModelInstance;
 import com.badlogic.gdx.graphics.g3d.attributes.ColorAttribute;
 import com.badlogic.gdx.graphics.g3d.environment.PointLight;
 import com.badlogic.gdx.graphics.g3d.loader.ObjLoader;
-import com.badlogic.gdx.graphics.g3d.utils.CameraInputController;
+import com.github.gawkat.untitledgame.console.Console;
 
+/**
+ * @author Gawkat
+ *
+ */
 public class Game extends ApplicationAdapter {
 
 	public PerspectiveCamera camera;
@@ -23,18 +29,29 @@ public class Game extends ApplicationAdapter {
 	public Model model;
 	public ModelInstance instance;
 	public Environment environment;
-	public CameraInputController camController;
+	public static MovementHandler movementHandler;
 
 	// TODO CONFIG
 	public float fov = 85;
+	public boolean enable_console = true;
+	public Console console;
+	public boolean draw_fps = true;
 
 	@Override
 	public void create() {
+		// TODO
+		movementHandler = new MovementHandler();
+		Gdx.input.setInputProcessor(movementHandler);
+		// TODO
+		if (enable_console) {
+			console = new Console();
+			console.create();
+		}
 
-		// Music test
+		// Music test TODO
 		Sound sound = Gdx.audio.newSound(Gdx.files
 				.internal("audio/music/Genesis.mp3"));
-		sound.play(0.1f);
+		// sound.play(0.1f);
 
 		environment = new Environment();
 		environment.set(new ColorAttribute(ColorAttribute.AmbientLight, 0.4f,
@@ -55,14 +72,11 @@ public class Game extends ApplicationAdapter {
 		ModelLoader<?> modelLoader = new ObjLoader();
 		model = modelLoader.loadModel(Gdx.files.internal("obj/de_dust2_b.obj"));
 		instance = new ModelInstance(model);
-		camController = new CameraInputController(camera);
-		Gdx.input.setInputProcessor(camController);
 	}
 
 	@Override
 	public void render() {
-		camController.update();
-
+		camera.update();
 		Gdx.gl.glViewport(0, 0, Gdx.graphics.getWidth(),
 				Gdx.graphics.getHeight());
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
@@ -70,6 +84,11 @@ public class Game extends ApplicationAdapter {
 		modelBatch.begin(camera);
 		modelBatch.render(instance, environment);
 		modelBatch.end();
+
+		// TODO
+		if (enable_console) {
+			console.render();
+		}
 	}
 
 	@Override
@@ -89,4 +108,54 @@ public class Game extends ApplicationAdapter {
 	@Override
 	public void pause() {
 	}
+
+	public class MovementHandler implements InputProcessor {
+
+		@Override
+		public boolean keyDown(int keycode) {
+			if (keycode == Keys.W) {
+				camera.position.x++;
+			}
+			return false;
+		}
+
+		@Override
+		public boolean keyUp(int keycode) {
+			return false;
+		}
+
+		@Override
+		public boolean keyTyped(char character) {
+			if (character == '§' && enable_console) {
+				console.toggleConsole();
+			}
+			return false;
+		}
+
+		@Override
+		public boolean touchDown(int x, int y, int pointer, int button) {
+			return false;
+		}
+
+		@Override
+		public boolean touchUp(int x, int y, int pointer, int button) {
+			return false;
+		}
+
+		@Override
+		public boolean touchDragged(int x, int y, int pointer) {
+			return false;
+		}
+
+		@Override
+		public boolean mouseMoved(int x, int y) {
+			return false;
+		}
+
+		@Override
+		public boolean scrolled(int amount) {
+			return false;
+		}
+	}
+
 }
