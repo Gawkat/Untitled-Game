@@ -3,6 +3,7 @@ package com.github.gawkat.untitledgame;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.loaders.ModelLoader;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.PerspectiveCamera;
@@ -29,6 +30,12 @@ public class Game extends ApplicationAdapter {
 
 	@Override
 	public void create() {
+
+		// Music test
+		Sound sound = Gdx.audio.newSound(Gdx.files
+				.internal("audio/music/Genesis.mp3"));
+		sound.play(0.1f);
+
 		environment = new Environment();
 		environment.set(new ColorAttribute(ColorAttribute.AmbientLight, 0.4f,
 				0.4f, 0.4f, 1f));
@@ -46,9 +53,8 @@ public class Game extends ApplicationAdapter {
 		camera.update();
 
 		ModelLoader<?> modelLoader = new ObjLoader();
-		model = modelLoader.loadModel(Gdx.files.internal("de_dust2_b.obj"));
+		model = modelLoader.loadModel(Gdx.files.internal("obj/de_dust2_b.obj"));
 		instance = new ModelInstance(model);
-
 		camController = new CameraInputController(camera);
 		Gdx.input.setInputProcessor(camController);
 	}
