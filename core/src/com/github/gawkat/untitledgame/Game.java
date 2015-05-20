@@ -113,6 +113,7 @@ public class Game extends ApplicationAdapter {
 
 		@Override
 		public boolean keyDown(int keycode) {
+			// TODO WTF?!
 			if (keycode == Keys.W) {
 				camera.position.x++;
 			}
