@@ -18,5 +18,6 @@ check for commands with same name as typed
 create console ui
 
 Commands:
-draw fps/n
+draw fps
+
 show ping
