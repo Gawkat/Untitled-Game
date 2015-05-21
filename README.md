@@ -4,20 +4,22 @@ Game
 # TODO
 
 ## Gameplay
-create gameplay
+1. create gameplay
+..* add character
 
 ## Movement
-add movement
+1. add movement
+2. add mouse input
 
 ## Sound
-create music system
-create effect player
+1. create music player
+2. create sound effect player
 
 ## Console
-check for commands with same name as typed
-create console ui
+1. check for commands with same name as typed
+2. create console ui
 
 Commands:
-draw fps
-
-show ping
+1. create system for labeling commands
+2. draw fps
+3. show ping
