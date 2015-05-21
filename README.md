@@ -19,7 +19,7 @@ Game
 1. check for commands with same name as typed
 2. create console ui
 
-  Commands:
+### Commands:
 1. create system for labeling commands
 2. draw fps
 3. show ping
